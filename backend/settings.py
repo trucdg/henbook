@@ -14,7 +14,8 @@ from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
 import os
-load_dotenv()
+
+load_dotenv() # Load variables from .env file
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,12 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-qau*a*x0tdm+!rtm&g742d&5y1#6$7=kldkh(_0^&x$p6k*tyj'
+SECRET_KEY=os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://henbook-4769f1d87344.herokuapp.com','http://127.0.0.1','*']
 
 ## JWT Configuration
 REST_FRAMEWORK = {
@@ -64,6 +65,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # add whitenoise middleware for serving static files
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     # corsheaders.middleware.CorsMiddleware should be placed as high as possible
     # so that it can add CORS headers to responses before other middleware runs.
     'corsheaders.middleware.CorsMiddleware',  # prevent CORS issue
@@ -141,6 +144,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -158,4 +163,5 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:3000',
     'http://localhost:5173',
+    'https://henbook-4769f1d87344.herokuapp.com'
 ]
