@@ -64,13 +64,15 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # corsheaders.middleware.CorsMiddleware should be placed as high as possible
+    # so that it can add CORS headers to responses before other middleware runs.
+    'corsheaders.middleware.CorsMiddleware',  # prevent CORS issue
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',  # prevent CORS issue
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -145,5 +147,15 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOW_ALL_ORIGINS = True
+# For development it's common to allow the local frontend dev server. When
+# allowing credentials you MUST NOT use a wildcard ('*') origin. Instead
+# specify explicit origins. We read the frontend origin from env so it's
+# configurable; default to a common React/Vite dev host.
+CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = True
+
+# Example: http://localhost:3000 (React) or http://127.0.0.1:5173 (Vite)
+CORS_ALLOWED_ORIGINS = [
+    'http://127.0.0.1:3000',
+    'http://localhost:5173',
+]

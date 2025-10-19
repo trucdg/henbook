@@ -36,6 +36,7 @@ local_settings.py
 .env.local
 .env.prod
 .env.dev
+migrations/
 
 # ---- Node / React ----
 node_modules/
