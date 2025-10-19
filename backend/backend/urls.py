@@ -28,4 +28,5 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='get_token'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='refresh_token'),
     path('api/auth/', include('rest_framework.urls')),  # For browsable API login/logout
+    path('api/', include('api.urls')),  # Include the API app URLs
 ]
