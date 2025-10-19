@@ -30,7 +30,7 @@ SECRET_KEY=os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ['https://henbook-4769f1d87344.herokuapp.com','http://127.0.0.1','*']
+ALLOWED_HOSTS = ['henbook-4769f1d87344.herokuapp.com', '127.0.0.1', 'localhost']
 
 ## JWT Configuration
 REST_FRAMEWORK = {
@@ -143,7 +143,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'dist/assets')]  # React build assets directory
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
