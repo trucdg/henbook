@@ -108,6 +108,15 @@ DATABASES = {
     }
 }
 
+# Update database configuration from $DATABASE_URL environment variable (if defined)
+import dj_database_url
+
+if 'DATABASE_URL' in os.environ:
+    DATABASES['default'] = dj_database_url.config(
+        conn_max_age=500,
+        conn_health_checks=True,
+    )
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -174,3 +183,6 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
     'https://henbook-4769f1d87344.herokuapp.com'
 ]
+
+import django_on_heroku
+django_on_heroku.settings(locals())
