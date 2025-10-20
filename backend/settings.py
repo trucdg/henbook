@@ -145,8 +145,16 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'dist/assets')]  # React build assets directory
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "dist", "assets")]  # React build assets directory
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STORAGES = {
+    # ...
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+# directory where WhiteNoise can find all non-html static assets
+WHITENOISE_ROOT = os.path.join(BASE_DIR, "dist")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
